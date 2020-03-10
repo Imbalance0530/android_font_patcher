@@ -1,0 +1,2 @@
+[1] Patch all fonts
+[2] Lato

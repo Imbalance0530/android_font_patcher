@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+if [ -n $1 ]; then
+    case $1 in
+		-cn )
+				FONT=RobotoCondensed
+				NAME="Roboto Condensed"
+				shift
+				;;
+
+		* )
+				FONT=Roboto
+				NAME=$FONT
+				;;
+    esac
+else
+	exit
+fi
+
+for i in "$@"
+do
+	STYLE=none
+	NEWNAME=$NAME
+	if [[ $i == *"-Regular."* ]]; then
+		STYLE=Regular
+	elif [[ $i == *"-Italic."* ]]; then
+		STYLE=Italic
+	elif [[ $i == *"-Light."* ]]; then
+		STYLE=Light
+		NEWNAME="$NAME Light"
+	elif [[ $i == *"-LightItalic."* ]]; then
+		STYLE=LightItalic
+		NEWNAME="$NAME Light"
+	elif [[ $i == *"-Thin."* ]]; then
+		STYLE=Thin
+		NEWNAME="$NAME Thin"
+	elif [[ $i == *"-ThinItalic."* ]]; then
+		STYLE=ThinItalic
+		NEWNAME="$NAME Thin"
+	elif [[ $i == *"-Medium."* ]]; then
+		STYLE=Medium
+		NEWNAME="$NAME Medium"
+	elif [[ $i == *"-MediumItalic."* ]]; then
+		STYLE=MediumItalic
+		NEWNAME="$NAME Medium"
+	elif [[ $i == *"-Bold."* ]]; then
+		STYLE=Bold
+	elif [[ $i == *"-BoldItalic."* ]]; then
+		STYLE=BoldItalic
+	elif [[ $i == *"-Black."* ]]; then
+		STYLE=Black
+		NEWNAME="$NAME Black"
+	elif [[ $i == *"-BlackItalic."* ]]; then
+		STYLE=BlackItalic
+		NEWNAME="$NAME Black"
+	fi
+
+	if [[ $STYLE != none ]]; then
+		RBT=$FONT-$STYLE.ttf
+		fontforge -script fontpatcher.pe Roboto/$RBT $i "$NEWNAME"
+		TMP="${i%.*}-patched.ttf"
+		OUT=$(dirname $TMP)/$RBT
+		mv $TMP $OUT
+	fi
+done
