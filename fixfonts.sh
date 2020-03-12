@@ -41,50 +41,6 @@ list_fonts() {
   done
 }
 
-help() {
-  cat <<EOF
-Android Font Patcher Wrapper Script
-Copyright (C) 2019, John Fawkes @ xda-developers
-License: GPLv3+
-Android Font Patcher was written by nongthaihoang @ xda-developers
-Copyright (C) 2019
-  Welcome to the help for Android Font Patcher!
-  This is the Folder Structure You Will Need to Follow
-  In Order for Font Patcher to Properly Detect and Patch Your Fonts!
-
-    |--android_font_patcher/
-            |--Fonts/
-                  |--<font-folder-name>/
-                         |--<font>-<style>.ttf/otf
-                         |--<font>-<style>.ttf/otf
-  
-  You Need To Place Your Font Folders in /android_font_patcher/Fonts
-  The <font-folder-name> is the Name of the Font You Want to Apply.
-  This Would be the Main Folder That Holds the ttf/otf Files for That Font.
-  The --<font>-<style>.ttf/otf are the ttf/otf Files For That Specific Font.
-  You Can Have Multiple Font Folders Inside the Fonts Folder.
-
-  Roboto-Black.ttf 
-  Roboto-BlackItalic.ttf 
-  Roboto-Bold.ttf 
-  Roboto-BoldItalic.ttf 
-  RobotoCondensed-Bold.ttf 
-  RobotoCondensed-BoldItalic.ttf 
-  RobotoCondensed-Italic.ttf 
-  RobotoCondensed-Light.ttf 
-  RobotoCondensed-LightItalic.ttf 
-  RobotoCondensed-Regular.ttf 
-  Roboto-Italic.ttf 
-  Roboto-Light.ttf 
-  Roboto-LightItalic.ttf 
-  Roboto-Medium.ttf 
-  Roboto-MediumItalic.ttf 
-  Roboto-Regular.ttf 
-  Roboto-Thin.ttf 
-  Roboto-ThinItalic.ttf
-EOF
-}
-
 roboto=(  
   Roboto-Black.ttf 
   Roboto-BlackItalic.ttf 
@@ -106,12 +62,6 @@ roboto=(
   Roboto-ThinItalic.ttf
 )
 
-move_fonts() {
-  for i in $PWD/sdcard/Fontchanger/Patcher/*; do
-    cp -rf $i $PWD/Fonts
-  done
-}
-
 copy_fonts() {
   c=0
   IFS=$'\n'
@@ -124,13 +74,6 @@ copy_fonts() {
   unset IFS
 }
 
-case "$1" in
-  -h|--help) 
-      help
-      exit
-  ;;
-esac
-
 menu() {
   fontstyle=none
   choice=""
@@ -142,11 +85,10 @@ menu() {
     exit
   fi
   copy_fonts
-#  move_fonts
   for j in $PWD/Fonts/*; do
     if [ -d $j ]; then
       list_fonts & e_spinner
-#      clear
+      clear
       cat $PWD/fontlist.txt
       break
     else
@@ -177,7 +119,7 @@ menu() {
     else
       choice2="$(grep -w $choice $PWD/fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
     fi
-#  clear
+  clear
   echo "Which style would you like to patch?"
   echo " "
   echo "[0] Thin"
@@ -222,7 +164,7 @@ menu() {
     12) all2=true; fontstyle=(Thin ThinItalic Light LightItalic Regular Italic Medium MediumItalic Bold BoldItalic Black BlackItalic);;
     *) invalid
   esac
-#  clear
+  clear
     for j in ${fontstyle[@]}; do
       for k in ${choice2[@]}; do
         echo "$i"
