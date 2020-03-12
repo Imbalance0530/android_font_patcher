@@ -83,6 +83,13 @@ echo "fixing shebang of $bin"
 termux-fix-shebang $bin
 echo "making $bin executable"
 chmod +x $bin
+echo "adding group ids for group errors"
+echo "group3001:x:3001:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
+echo "group3003:x:3003:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
+echo "group9997:x:9997:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
+echo "group20139:x:20139:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
+echo "group50139:x:50139:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
+echo "group99909997:x:99909997:" >> /data/data/com.termux/files/home/ubuntu-fs/etc/groups
 echo "removing image for some space"
 rm $tarball
 mv $bin /data/data/com.termux/files/usr/bin
