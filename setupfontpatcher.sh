@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 
-echo "Setting up Termux"
-
-startubuntu
+echo "Setting up Termux-Ubuntu"
 
 sudo apt update && sudo apt upgrade
 
