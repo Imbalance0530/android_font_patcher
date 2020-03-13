@@ -46,7 +46,7 @@ Step 4:
 Step 5:  
 - Installing the Font Patcher  
   ```
-  wget https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/master/setupfontpatcher.sh && chmod a+x setupfontpatcher.sh && ./setupfontpatcher.sh
+  apt update && apt upgrade && apt install wget -y && wget https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/master/setupfontpatcher.sh && chmod a+x setupfontpatcher.sh && ./setupfontpatcher.sh
   ```
 Step 6:  
 - Preparing to patch  
