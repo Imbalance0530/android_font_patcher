@@ -29,6 +29,10 @@ Step 2:
   ```
   pkg update && pkg upgrade
   ```
+- Then run 
+```
+termux-setup-storage
+```
 Step 3:  
 - Installing Ubuntu  
   ```
