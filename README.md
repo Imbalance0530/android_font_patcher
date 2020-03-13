@@ -44,28 +44,28 @@ Step 5:
   ```
   wget https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/master/setupfontpatcher.sh && chmod a+x setupfontpatcher.sh && ./setupfontpatcher.sh
   ```
-Step 6:
-- Preparing to patch
-  ( /sdcard == Internal Storage )
-  - Navigate to /sdcard/Fontchanger/Patcher and create a folder for each font
-  - Place your single ttf inside
-  - Folder structure will be:
-      |--sdcard/
-        |--Fontchanger/
-          |--Patcher/
-            |--<Folder with Font Name>/
-              |--<single ttf>, can be named anything
-Step 7:
-- Patching!
+Step 6:  
+- Preparing to patch  
+  ( /sdcard == Internal Storage )  
+  - Navigate to /sdcard/Fontchanger/Patcher and create a folder for each font  
+  - Place your single ttf inside  
+  - Folder structure will be:  
+      |--sdcard/  
+        |--Fontchanger/  
+          |--Patcher/  
+            |--<Folder with Font Name>/  
+              |--<single ttf>, can be named anything  
+Step 7:  
+- Patching!  
   ```
-  ./fixfonts.sh
+  ./fixfonts.sh  
   ```
-  - Follow the on screen prompts
-Step 8:
-- Once patching is done font folder are auto copied to /sdcard/Fontchanger/Fonts/Custom
-- You'll be able to exit from ubuntu with ```exit``` then ```su``` ```font_changer```
-Step 9:
-- ENJOY!!
+  - Follow the on screen prompts  
+Step 8:  
+- Once patching is done font folder are auto copied to /sdcard/Fontchanger/Fonts/Custom  
+- You'll be able to exit from ubuntu with ```exit``` then ```su``` ```font_changer```  
+Step 9:  
+- ENJOY!!  
   
 
 
