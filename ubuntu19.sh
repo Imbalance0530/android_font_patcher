@@ -31,7 +31,7 @@ if [ "$first" != 1 ];then
 	mkdir -p "$folder"
 	cd "$folder"
 	echo "Decompressing Rootfs, please be patient."
-	proot --link2symlink tar -xjf ${cur}/${tarball} --exclude=dev||:
+	proot --link2symlink tar -xJf ${cur}/${tarball} --exclude=dev||:
 	echo "fixing nameserver, otherwise it can't connect to the internet"
 	echo "nameserver 8.8.8.8" > etc/resolv.conf
 	echo "nameserver 8.8.4.4" > etc/resolv.conf
