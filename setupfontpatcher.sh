@@ -3,9 +3,9 @@
 
 echo "Setting up Termux-Ubuntu"
 
-sudo apt update && sudo apt upgrade
+apt update && apt upgrade
 
-sudo apt install fontforge git -y
+apt install fontforge git -y
 
 git clone https://github.com/johnfawkes/android_font_patcher.git
 
