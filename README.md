@@ -54,7 +54,7 @@ Step 6:
         |--Fontchanger/
           |--Patcher/
             |--<Folder with Font Name>/
-              |--<single ttf, can be named anything>
+              |--<single ttf>, can be named anything
 Step 7:
 - Patching!
   ```
