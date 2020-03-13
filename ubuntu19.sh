@@ -4,7 +4,7 @@ if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu-rootfs.tar.gz"
+tarball="ubuntu-rootfs.tar.xz"
 
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
@@ -25,13 +25,13 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-    wget "https://partner-images.canonical.com/core/disco/current/ubuntu-disco-core-cloudimg-${arch}-root.tar.gz" -O $tarball
+    wget "https://gitlab.com/JohnFawkes/termux-ubuntu/-/blob/master/Rootfs/Ubuntu/${arch}/ubuntu-rootfs-${arch}.tar.xz" -O $tarball
   fi
 	cur=`pwd`
 	mkdir -p "$folder"
 	cd "$folder"
 	echo "Decompressing Rootfs, please be patient."
-	proot --link2symlink tar -xf ${cur}/${tarball} --exclude=dev||:
+	proot --link2symlink tar -xjf ${cur}/${tarball} --exclude=dev||:
 	echo "fixing nameserver, otherwise it can't connect to the internet"
 	echo "nameserver 8.8.8.8" > etc/resolv.conf
 	echo "nameserver 8.8.4.4" > etc/resolv.conf
