@@ -25,7 +25,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-    wget "https://gitlab.com/JohnFawkes/termux-ubuntu/Rootfs/Ubuntu/${arch}/ubuntu-rootfs-${arch}.tar.xz" -O $tarball
+    wget "https://gitlab.com/JohnFawkes/termux-ubuntu/-/raw/master/Rootfs/Ubuntu/${arch}/ubuntu-rootfs-${arch}.tar.xz" -O $tarball
   fi
 	cur=`pwd`
 	mkdir -p "$folder"
