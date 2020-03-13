@@ -55,7 +55,7 @@ Step 6:
           |--Patcher/  
             |--Folder with Font Name/  
               |--single ttf, can be named anything  
-Step 7:  
+ Step 7:  
 - Patching!  
   ```
   ./fixfonts.sh  
