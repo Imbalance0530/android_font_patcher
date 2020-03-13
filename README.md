@@ -18,6 +18,9 @@ Patch custom fonts to be used on Android.
 - Android with termux and ubuntu
 - Fontforge
 
+## TODO
+- Add way to match weight of font with style of font. ( ie. bold actually displays bold font )
+
 ## Usage
 Step 1:
 - Install Termux from Play Store
@@ -45,13 +48,13 @@ Step 6:
 - Preparing to patch
   ( /sdcard == Internal Storage )
   - Navigate to /sdcard/Fontchanger/Patcher and create a folder for each font
-  - Place your single ttf/otf inside
+  - Place your single ttf inside
   - Folder structure will be:
       |--sdcard/
         |--Fontchanger/
           |--Patcher/
             |--<Folder with Font Name>/
-              |--<single ttf or otf, can be named anything>
+              |--<single ttf, can be named anything>
 Step 7:
 - Patching!
   ```
