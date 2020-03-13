@@ -22,39 +22,39 @@ Patch custom fonts to be used on Android.
 - Add way to match weight of font with style of font. ( ie. bold actually displays bold font )
 
 ## Usage
-Step 1:
-- Install Termux from Play Store
-Step 2:
-- Run the following command in termux to update
+Step 1:  
+- Install Termux from Play Store  
+Step 2:  
+- Run the following command in termux to update  
   ```
   pkg update && pkg upgrade
   ```
-Step 3:
-- Installing Ubuntu
+Step 3:  
+- Installing Ubuntu  
   ```
   pkg update -y && pkg install proot wget tar pulseaudio -y && wget https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/master/ubuntu19.sh && chmod a+x ubuntu19.sh && ./ubuntu19.sh
   ```
-Step 4:
-- Starting Ubuntu
+Step 4:  
+- Starting Ubuntu  
   ```
   startubuntu
   ```
-Step 5:
-- Installing the Font Patcher
+Step 5:  
+- Installing the Font Patcher  
   ```
   wget https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/master/setupfontpatcher.sh && chmod a+x setupfontpatcher.sh && ./setupfontpatcher.sh
   ```
 Step 6:  
 - Preparing to patch  
-  ( /sdcard == Internal Storage )  
+  ( /sdcard == Internal Storage )   
   - Navigate to /sdcard/Fontchanger/Patcher and create a folder for each font  
   - Place your single ttf inside  
   - Folder structure will be:  
       |--sdcard/  
         |--Fontchanger/  
           |--Patcher/  
-            |--<Folder with Font Name>/  
-              |--<single ttf>, can be named anything  
+            |--Folder with Font Name/  
+              |--single ttf, can be named anything  
 Step 7:  
 - Patching!  
   ```
