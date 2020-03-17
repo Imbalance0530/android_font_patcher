@@ -64,8 +64,9 @@ Step 6:
   ```
  cd android_font_patcher
   ```
+
   ```
- ./fixfonts.sh  
+./fixfonts.sh
   ```
   - Follow the on screen prompts  
 Step 8:  
