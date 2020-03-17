@@ -13,7 +13,7 @@ cd android_font_patcher
 
 chmod a+x fixfonts.sh
 
-mkdir /sdcard/Fontchanger/Patcher
+mkdir -p /sdcard/Fontchanger/Patcher 2>&1
 
 echo "Please place your fonts in internal storage/Fontchanger/Patcher"
 
