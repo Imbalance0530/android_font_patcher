@@ -65,8 +65,9 @@ roboto=(
 copy_fonts() {
   c=0
   IFS=$'\n'
-  font=$PWD/sdcard/Fontchanger/Patcher/*
+  font=/sdcard/Fontchanger/Patcher/*
   font2=$font/*
+  mkdir -p Fonts/$(basename $font) 2>&1
   for i in ${roboto[@]}; do
     cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
     c=$((c+1))
@@ -177,7 +178,7 @@ menu() {
     done
   echo "Moving fonts to custom fontchanger folder"
   for i in $PWD/Fonts/*; do
-    mv $i $PWD/sdcard/Fontchanger/Fonts/Custom
+    mv $i /sdcard/Fontchanger/Fonts/Custom
   done
 }
 
