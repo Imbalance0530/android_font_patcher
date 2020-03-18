@@ -73,7 +73,7 @@ copy_fonts() {
   font=/sdcard/Fontchanger/Patcher/*
   font2=$font/*
   for l in ${font[@]}; do
-    mv -f $l Fonts
+    cp -f $l Fonts
   done
   for i in ${roboto[@]}; do
 #    if [ ! -d Fonts/$(basename ${font[@]}); then
