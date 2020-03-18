@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 #alias # clear='echo'
+mkdir Logs
+exec 2>Logs/patcher-verbose.log
+set -x 2>&1 >/dev/null
 
 rm -f $PWD/Fonts/placeholder
 
