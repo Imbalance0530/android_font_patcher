@@ -181,8 +181,8 @@ menu() {
     done
   echo "Moving fonts to custom fontchanger folder"
   for i in $PWD/Fonts/*; do
-    if [ -d /sdcard/Fontchanger/Fonts/Custom/$i ]; then
-      rm -rf /sdcard/Fontchanger/Fonts/Custom/$i
+    if [ -d /sdcard/Fontchanger/Fonts/Custom/$(basename $i) ]; then
+      rm -rf /sdcard/Fontchanger/Fonts/Custom/$(basename $i)
     fi
     mv $i /sdcard/Fontchanger/Fonts/Custom
   done
