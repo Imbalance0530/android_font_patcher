@@ -183,12 +183,10 @@ menu() {
           . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.*
         fi
         echo "Moving fonts to custom fontchanger folder"
-        for i in $PWD/Fonts/*; do
-          if [ -f /sdcard/Fontchanger/Fonts/Custom/$(basename $i) ]; then
-            rm -rf /sdcard/Fontchanger/Fonts/Custom/$(basename $i)
+          if [ -f /sdcard/Fontchanger/Fonts/Custom/$k ]; then
+            rm -rf /sdcard/Fontchanger/Fonts/Custom/$k
           fi
-          mv $i/Roboto*$j.* /sdcard/Fontchanger/Fonts/Custom
-        done
+        mv $i/Roboto*$j.* /sdcard/Fontchanger/Fonts/Custom/$k
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
