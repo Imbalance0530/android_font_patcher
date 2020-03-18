@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias clear='echo'
+#alias # clear='echo'
 
 rm -f $PWD/Fonts/placeholder
 
@@ -18,7 +18,7 @@ e_spinner() {
 invalid() {
   echo "Invaild Option..."
   sleep 3
-  clear
+  # clear
   menu
 }
 
@@ -89,7 +89,7 @@ menu() {
   for j in $PWD/Fonts/*; do
     if [ -d $j ]; then
       list_fonts & e_spinner
-      clear
+      # clear
       cat $PWD/fontlist.txt
       break
     else
@@ -120,7 +120,7 @@ menu() {
     else
       choice2="$(grep -w $choice $PWD/fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
     fi
-  clear
+  # clear
   echo "Which style would you like to patch?"
   echo " "
   echo "[0] Thin"
@@ -165,7 +165,7 @@ menu() {
     12) all2=true; fontstyle=(Thin ThinItalic Light LightItalic Regular Italic Medium MediumItalic Bold BoldItalic Black BlackItalic);;
     *) invalid
   esac
-  clear
+  # clear
     for j in ${fontstyle[@]}; do
       for k in ${choice2[@]}; do
         echo "$i"
