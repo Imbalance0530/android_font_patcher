@@ -72,10 +72,13 @@ copy_fonts() {
   IFS=$'\n'
   font=/sdcard/Fontchanger/Patcher/*
   font2=$font/*
+  for l in ${font[@]}; do
+    mv -f $l Fonts
+  done
   for i in ${roboto[@]}; do
-    if [ ! -d Fonts/$(basename ${font[@]}); then
-      mkdir -p Fonts/$(basename ${font[@]}) 2>&1
-    fi
+#    if [ ! -d Fonts/$(basename ${font[@]}); then
+#      mkdir -p Fonts/$(basename ${font[@]}) 2>&1
+#    fi
     cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
     c=$((c+1))
   done
