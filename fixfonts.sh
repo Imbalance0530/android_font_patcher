@@ -70,9 +70,9 @@ roboto=(
 copy_fonts() {
   c=0
   IFS=$'\n'
-  font=/sdcard/Fontchanger/Patcher/*
+  font=(/sdcard/Fontchanger/Patcher/*)
   font2=$font/*
-  for l in "$font"; do
+  for l in "${font[@]}"; do
     cp -rf $l Fonts
   done
   for i in ${roboto[@]}; do
