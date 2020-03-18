@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 #alias # clear='echo'
-mkdir Logs
+if [ ! -d Logs ]; then
+  mkdir Logs
+fi
 exec 2>Logs/patcher-verbose.log
-set -x 2>&1 >/dev/null
+set -x 2>&1
 
 rm -f $PWD/Fonts/placeholder
 
@@ -186,6 +188,7 @@ menu() {
     fi
     mv $i /sdcard/Fontchanger/Fonts/Custom
   done
+  cp -rf Logs /sdcard/Fontchanger/Patcher
 }
 
 menu
