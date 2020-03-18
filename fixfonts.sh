@@ -72,8 +72,8 @@ copy_fonts() {
   IFS=$'\n'
   font=/sdcard/Fontchanger/Patcher/*
   font2=$font/*
-  for l in ${font[@]}; do
-    cp -f $l Fonts
+  for l in "$font"; do
+    cp -rf $l Fonts
   done
   for i in ${roboto[@]}; do
 #    if [ ! -d Fonts/$(basename ${font[@]}); then
@@ -91,7 +91,7 @@ menu() {
   all=false
   if [ ! -d $PWD/Fonts ]; then
     echo "Fonts folder is not found! Creating...."
-    echo "Please place fonts inside a folder with the name of font inside the fonts folder"
+    echo "Please place fonts inside a folder with the name of font inside the patcher folder"
     mkdir $PWD/Fonts
     exit
   fi
@@ -105,7 +105,7 @@ menu() {
     else
       echo "No Fonts Found"
       echo " "
-      echo "Please place fonts inside a folder with the name of font inside the fonts folder"
+      echo "Please place fonts inside a folder with the name of font inside the patcher folder"
       exit
     fi
   done
