@@ -186,7 +186,7 @@ menu() {
           if [ -d /sdcard/Fontchanger/Fonts/Custom/$k ]; then
             rm -rf /sdcard/Fontchanger/Fonts/Custom/$k
           fi
-        mv $i/Roboto*$j.* /sdcard/Fontchanger/Fonts/Custom/$k/Roboto*$j.*
+        mv $i/Roboto*$j.ttf /sdcard/Fontchanger/Fonts/Custom/
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
