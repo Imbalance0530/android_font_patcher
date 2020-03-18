@@ -184,15 +184,15 @@ menu() {
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
           . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.*
         fi
+        echo "Moving fonts to custom fontchanger folder"
+        for i in $PWD/Fonts/*/$j.*; do
+          if [ -d /sdcard/Fontchanger/Fonts/Custom/$(basename $i) ]; then
+            rm -rf /sdcard/Fontchanger/Fonts/Custom/$(basename $i)
+          fi
+          mv $i /sdcard/Fontchanger/Fonts/Custom
+        done
       done
-    done
-  echo "Moving fonts to custom fontchanger folder"
-  for i in $PWD/Fonts/*; do
-    if [ -d /sdcard/Fontchanger/Fonts/Custom/$(basename $i) ]; then
-      rm -rf /sdcard/Fontchanger/Fonts/Custom/$(basename $i)
-    fi
-    mv $i /sdcard/Fontchanger/Fonts/Custom
-  done
+    done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
 }
 
