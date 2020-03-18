@@ -24,7 +24,7 @@ invalid() {
 
 list_fonts() {
   echo "Loading fonts"
-  num=1
+  num=2
   if [ -f $PWD/listoffonts.txt ] || [ -f $PWD/fontlist.txt ] || [ -f $PWD/choices.txt ]; then
     rm -f $PWD/listoffonts.txt >&2
     rm -f $PWD/fontlist.txt >&2
