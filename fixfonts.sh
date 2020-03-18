@@ -2,7 +2,7 @@
 
 alias clear='echo'
 
-rm -f Fonts/placeholder
+rm -f $PWD/Fonts/placeholder
 
 # cmd & spinner <message>
 e_spinner() {
@@ -24,19 +24,19 @@ invalid() {
 
 list_fonts() {
   echo "Loading fonts"
-  num=2
-  if [ -f listoffonts.txt ] || [ -f fontlist.txt ] || [ -f choices.txt ]; then
-    rm -f listoffonts.txt >&2
-    rm -f fontlist.txt >&2
-    rm -f choices.txt >&2
+  num=1
+  if [ -f $PWD/listoffonts.txt ] || [ -f $PWD/fontlist.txt ] || [ -f $PWD/choices.txt ]; then
+    rm -f $PWD/listoffonts.txt >&2
+    rm -f $PWD/fontlist.txt >&2
+    rm -f $PWD/choices.txt >&2
   fi
-  touch fontlist.txt 
-  touch choices.txt
-  echo "[1] Patch all fonts" >> fontlist.txt
-  for i in $(find "Fonts/" -type d | sed 's#.*/##'); do
+  touch $PWD/fontlist.txt 
+  touch $PWD/choices.txt
+  echo "[1] Patch all fonts" >> $PWD/fontlist.txt
+  for i in $(find "$PWD/Fonts/" -type d | sed 's#.*/##'); do
     sleep 0.1
-    echo "[$num] $i" >> fontlist.txt
-    echo "$num" >> choices.txt
+    echo "[$num] $i" >> $PWD/fontlist.txt
+    echo "$num" >> $PWD/choices.txt
     num=$((num + 1))
   done
 }
@@ -66,10 +66,10 @@ copy_fonts() {
   c=0
   IFS=$'\n'
   font=/sdcard/Fontchanger/Patcher/*
-  font2=$(ls $font/*)
+  font2=$font/*
   mkdir -p Fonts/$(basename $font) 2>&1
   for i in ${roboto[@]}; do
-    cp -f "${font2}" "Fonts/$(basename $font)/${roboto[$c]}"
+    cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
     c=$((c+1))
   done
   unset IFS
@@ -79,18 +79,18 @@ menu() {
   fontstyle=none
   choice=""
   all=false
-  if [ ! -d Fonts ]; then
+  if [ ! -d $PWD/Fonts ]; then
     echo "Fonts folder is not found! Creating...."
     echo "Please place fonts inside a folder with the name of font inside the fonts folder"
-    mkdir Fonts
+    mkdir $PWD/Fonts
     exit
   fi
   copy_fonts
-  for j in Fonts/*; do
+  for j in $PWD/Fonts/*; do
     if [ -d $j ]; then
       list_fonts & e_spinner
       clear
-      cat fontlist.txt
+      cat $PWD/fontlist.txt
       break
     else
       echo "No Fonts Found"
@@ -99,7 +99,7 @@ menu() {
       exit
     fi
   done
-  wrong=$(cat fontlist.txt | wc -l)
+  wrong=$(cat $PWD/fontlist.txt | wc -l)
   echo "Which font would you like to patch?"
   echo " "
   echo "Please enter the corresponding number"
@@ -115,10 +115,10 @@ menu() {
       [ $choice -gt $wrong ] && invalid
     fi
     if [[ $all == "true" ]]; then
-      ls Fonts >> listoffonts.txt
-      choice2=($(cat listoffonts.txt))
+      ls $PWD/Fonts >> $PWD/listoffonts.txt
+      choice2=($(cat $PWD/listoffonts.txt))
     else
-      choice2="$(grep -w $choice fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
+      choice2="$(grep -w $choice $PWD/fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
     fi
   clear
   echo "Which style would you like to patch?"
@@ -170,17 +170,18 @@ menu() {
       for k in ${choice2[@]}; do
         echo "$i"
         echo "$j"
-          . /font-patcher Fonts/$k/Roboto-$j.*
+          . $PWD/font-patcher $PWD/Fonts/$k/Roboto-$j.*
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
-          . /font-patcher -cn Fonts/$k/RobotoCondensed-$j.*
+          . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.*
         fi
       done
     done
   echo "Moving fonts to custom fontchanger folder"
-  for i in Fonts/*; do
+  for i in $PWD/Fonts/*; do
     mv $i /sdcard/Fontchanger/Fonts/Custom
   done
 }
 
 menu
 exit $?
+
