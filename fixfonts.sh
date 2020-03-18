@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 #alias # clear='echo'
-if [ ! -d Logs ]; then
-  mkdir Logs
+if [ ! -d PatcherLogs ]; then
+  mkdir PatcherLogs
 fi
-exec 2>Logs/patcher-verbose.log
+exec 2>PatcherLogs/patcher-verbose.log
 set -x 2>&1
 
 rm -f $PWD/Fonts/placeholder
@@ -72,8 +72,10 @@ copy_fonts() {
   IFS=$'\n'
   font=/sdcard/Fontchanger/Patcher/*
   font2=$font/*
-  mkdir -p Fonts/$(basename $font) 2>&1
   for i in ${roboto[@]}; do
+    if [ ! -d Fonts/$(basename ${font[@]}); then
+      mkdir -p Fonts/$(basename ${font[@]}) 2>&1
+    fi
     cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
     c=$((c+1))
   done
@@ -188,7 +190,7 @@ menu() {
     fi
     mv $i /sdcard/Fontchanger/Fonts/Custom
   done
-  cp -rf Logs /sdcard/Fontchanger/Patcher
+  cp -rf PatcherLogs /sdcard/Fontchanger/
 }
 
 menu
