@@ -21,6 +21,22 @@ Patch custom fonts to be used on Android.
 ## TODO
 - Add way to match weight of font with style of font. ( ie. bold actually displays bold font )
 
+## UPDATING
+- After following the guide and getting everything installed you'll want to update by running the following commands in termux.
+```
+startubuntu
+```
+```
+cd android_font_patcher
+```
+```
+git pull
+```
+then by running the command below can you run the script to patch the fonts
+```
+./fixfonts.sh
+```
+
 ## Usage
 Step 1:  
 - Install Termux from Play Store  
