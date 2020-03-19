@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-#alias # clear='echo'
+alias # clear='echo'
+
 if [ ! -d PatcherLogs ]; then
   mkdir PatcherLogs
 fi
-exec 2>PatcherLogs/patcher-verbose.log
-set -x 2>&1
 
-rm -f $PWD/Fonts/placeholder
+exec 2>PatcherLogs/patcher-verbose.log
+set -x 2>&1 >/dev/null
+
+rm -f $PWD/Fonts/Placeholder
 
 # cmd & spinner <message>
 e_spinner() {
@@ -23,7 +25,7 @@ e_spinner() {
 invalid() {
   echo "Invaild Option..."
   sleep 3
-  # clear
+  clear
   menu
 }
 
@@ -76,9 +78,6 @@ copy_fonts() {
     cp -rf $l Fonts
   done
   for i in ${roboto[@]}; do
-#    if [ ! -d Fonts/$(basename ${font[@]}); then
-#      mkdir -p Fonts/$(basename ${font[@]}) 2>&1
-#    fi
     cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
     c=$((c+1))
   done
@@ -99,7 +98,7 @@ menu() {
   for j in $PWD/Fonts/*; do
     if [ -d $j ]; then
       list_fonts & e_spinner
-      # clear
+      clear
       cat $PWD/fontlist.txt
       break
     else
@@ -130,7 +129,7 @@ menu() {
     else
       choice2="$(grep -w $choice $PWD/fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
     fi
-  # clear
+  clear
   echo "Which style would you like to patch?"
   echo " "
   echo "[0] Thin"
@@ -175,18 +174,19 @@ menu() {
     12) all2=true; fontstyle=(Thin ThinItalic Light LightItalic Regular Italic Medium MediumItalic Bold BoldItalic Black BlackItalic);;
     *) invalid
   esac
-  # clear
+  clear
     for j in ${fontstyle[@]}; do
       for k in ${choice2[@]}; do
           . $PWD/font-patcher $PWD/Fonts/$k/Roboto-$j.*
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
-          . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.*
+          . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.* 2>&1
         fi
         echo "Moving fonts to custom fontchanger folder"
-          if [ -d /sdcard/Fontchanger/Fonts/Custom/$k ]; then
-            rm -rf /sdcard/Fontchanger/Fonts/Custom/$k
-          fi
-        mv $i/Roboto*$j.ttf /sdcard/Fontchanger/Fonts/Custom/
+        mkdir /sdcard/Fontchanger/Fonts/Custom/$k
+        mv Fonts/$k/Roboto-$j.ttf /sdcard/Fontchanger/Fonts/Custom/$k/
+        if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
+          mv Fonts/$k/RobotoCondensed-$j.ttf /sdcard/Fontchanger/Fonts/Custom/$k/
+        fi
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
@@ -194,4 +194,3 @@ menu() {
 
 menu
 exit $?
-
