@@ -79,11 +79,13 @@ copy_fonts() {
     cp -rf "${l}" Fonts
     d=$((d+1))
   done
-  for i in "${roboto[@]}"; do
-    cp -f "${font2}" "Fonts/$(basename $font)/${roboto[$c]}"
-    c=$((c+1))
-  done
-  unset IFS
+  for z in Fonts/*; do
+    for i in "${roboto[@]}"; do
+      cp -f "${font2}" "Fonts/$(basename $font)/${roboto[$c]}"
+      c=$((c+1))
+    done
+    unset IFS
+  done  
   rm -f /sdcard/Fontchanger/Patcher/*
 }
 
