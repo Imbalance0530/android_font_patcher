@@ -71,12 +71,12 @@ roboto=(
 
 copy_fonts() {
   c=0
-  d=1
+  d=0
   IFS=$'\n'
   font=(/sdcard/Fontchanger/Patcher/*)
   font2=("$font"/*)
   for l in "${font[@]}"; do
-    mv "${l[$d]}" Fonts
+    mv "${l}" Fonts
     d=$((d+1))
   done
   for i in "${roboto[@]}"; do
@@ -192,8 +192,8 @@ menu() {
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
-  for m in Fonts/; do
-    rm -rf "$m"
+  for m in Fonts/*; do
+    rm -f "$m"
   done
 }
 
