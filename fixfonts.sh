@@ -76,7 +76,7 @@ copy_fonts() {
   font=(/sdcard/Fontchanger/Patcher/*)
   font2=("$font"/*)
   for l in "${font[@]}"; do
-    mv "${l}" Fonts
+    cp -rf "${l}" Fonts
     d=$((d+1))
   done
   for i in "${roboto[@]}"; do
@@ -84,6 +84,7 @@ copy_fonts() {
     c=$((c+1))
   done
   unset IFS
+  rm -f /sdcard/Fontchanger/Patcher/*
 }
 
 menu() {
