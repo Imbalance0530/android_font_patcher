@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-alias clear='echo'
+#alias clear='echo'
 
 if [ ! -d PatcherLogs ]; then
   mkdir PatcherLogs
@@ -71,14 +71,16 @@ roboto=(
 
 copy_fonts() {
   c=0
+  d=1
   IFS=$'\n'
   font=(/sdcard/Fontchanger/Patcher/*)
-  font2="$font"/*
+  font2=("$font"/*)
   for l in "${font[@]}"; do
-    cp -rf "$l" Fonts
+    mv "${l[$d]}" Fonts
+    d=$((d+1))
   done
   for i in "${roboto[@]}"; do
-    cp -f "${font2}" "$PWD/Fonts/$(basename $font)/${roboto[$c]}"
+    cp -f "${font2}" "Fonts/$(basename $font)/${roboto[$c]}"
     c=$((c+1))
   done
   unset IFS
@@ -190,6 +192,9 @@ menu() {
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
+  for m in Fonts/; do
+    rm -rf "$m"
+  done
 }
 
 menu
