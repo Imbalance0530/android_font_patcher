@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias # clear='echo'
+alias clear='echo'
 
 if [ ! -d PatcherLogs ]; then
   mkdir PatcherLogs
@@ -9,7 +9,7 @@ fi
 exec 2>PatcherLogs/patcher-verbose.log
 set -x 2>&1 >/dev/null
 
-rm -f $PWD/Fonts/Placeholder
+rm -f Fonts/Placeholder
 
 # cmd & spinner <message>
 e_spinner() {
@@ -32,18 +32,18 @@ invalid() {
 list_fonts() {
   echo "Loading fonts"
   num=2
-  if [ -f $PWD/listoffonts.txt ] || [ -f $PWD/fontlist.txt ] || [ -f $PWD/choices.txt ]; then
-    rm -f $PWD/listoffonts.txt >&2
-    rm -f $PWD/fontlist.txt >&2
-    rm -f $PWD/choices.txt >&2
+  if [ -f listoffonts.txt ] || [ -f fontlist.txt ] || [ -f choices.txt ]; then
+    rm -f listoffonts.txt >&2
+    rm -f fontlist.txt >&2
+    rm -f choices.txt >&2
   fi
-  touch $PWD/fontlist.txt 
-  touch $PWD/choices.txt
-  echo "[1] Patch all fonts" >> $PWD/fontlist.txt
-  for i in $(find "$PWD/Fonts/" -type d | sed 's#.*/##'); do
+  touch fontlist.txt 
+  touch choices.txt
+  echo "[1] Patch all fonts" >> fontlist.txt
+  for i in $(find "Fonts/" -type d | sed 's#.*/##'); do
     sleep 0.1
-    echo "[$num] $i" >> $PWD/fontlist.txt
-    echo "$num" >> $PWD/choices.txt
+    echo "[$num] $i" >> fontlist.txt
+    echo "$num" >> choices.txt
     num=$((num + 1))
   done
 }
@@ -73,12 +73,12 @@ copy_fonts() {
   c=0
   IFS=$'\n'
   font=(/sdcard/Fontchanger/Patcher/*)
-  font2=$font/*
+  font2="$font"/*
   for l in "${font[@]}"; do
-    cp -rf $l Fonts
+    cp -rf "$l" Fonts
   done
-  for i in ${roboto[@]}; do
-    cp -f ${font2} $PWD/Fonts/$(basename $font)/${roboto[$c]}
+  for i in "${roboto[@]}"; do
+    cp -f "${font2}" "$PWD/Fonts/$(basename $font)/${roboto[$c]}"
     c=$((c+1))
   done
   unset IFS
@@ -88,18 +88,18 @@ menu() {
   fontstyle=none
   choice=""
   all=false
-  if [ ! -d $PWD/Fonts ]; then
+  if [ ! -d Fonts ]; then
     echo "Fonts folder is not found! Creating...."
     echo "Please place fonts inside a folder with the name of font inside the patcher folder"
-    mkdir $PWD/Fonts
+    mkdir Fonts
     exit
   fi
   copy_fonts
-  for j in $PWD/Fonts/*; do
-    if [ -d $j ]; then
+  for j in Fonts/*; do
+    if [ -d "$j" ]; then
       list_fonts & e_spinner
       clear
-      cat $PWD/fontlist.txt
+      cat fontlist.txt
       break
     else
       echo "No Fonts Found"
@@ -108,7 +108,7 @@ menu() {
       exit
     fi
   done
-  wrong=$(cat $PWD/fontlist.txt | wc -l)
+  wrong=$(cat fontlist.txt | wc -l)
   echo "Which font would you like to patch?"
   echo " "
   echo "Please enter the corresponding number"
@@ -124,10 +124,10 @@ menu() {
       [ $choice -gt $wrong ] && invalid
     fi
     if [[ $all == "true" ]]; then
-      ls $PWD/Fonts >> $PWD/listoffonts.txt
-      choice2=($(cat $PWD/listoffonts.txt))
+      ls Fonts >> listoffonts.txt
+      choice2=($(cat listoffonts.txt))
     else
-      choice2="$(grep -w $choice $PWD/fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
+      choice2="$(grep -w "$choice" fontlist.txt | tr -d '[' | tr -d ']' | tr -d "$choice" | tr -d ' ')"
     fi
   clear
   echo "Which style would you like to patch?"
@@ -175,17 +175,17 @@ menu() {
     *) invalid
   esac
   clear
-    for j in ${fontstyle[@]}; do
-      for k in ${choice2[@]}; do
-          . $PWD/font-patcher $PWD/Fonts/$k/Roboto-$j.*
+    for j in "${fontstyle[@]}"; do
+      for k in "${choice2[@]}"; do
+          . /font-patcher Fonts/"$k"/Roboto-$j.*
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
-          . $PWD/font-patcher -cn $PWD/Fonts/$k/RobotoCondensed-$j.* 2>&1
+          . /font-patcher -cn Fonts/"$k"/RobotoCondensed-$j.* 2>&1
         fi
         echo "Moving fonts to custom fontchanger folder"
         mkdir /sdcard/Fontchanger/Fonts/Custom/$k
         mv Fonts/$k/Roboto-$j.ttf /sdcard/Fontchanger/Fonts/Custom/$k/
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
-          mv Fonts/$k/RobotoCondensed-$j.ttf /sdcard/Fontchanger/Fonts/Custom/$k/
+          mv Fonts/"$k"/RobotoCondensed-$j.ttf /sdcard/Fontchanger/Fonts/Custom/"$k"/
         fi
       done
     done        
