@@ -81,7 +81,7 @@ copy_fonts() {
   done
   for z in Fonts/*; do
     for i in "${roboto[@]}"; do
-      cp -f "${font2[@]}" "Fonts/$z/${roboto[$c]}"
+      cp -f "${font2}" "Fonts/$z/${roboto[$c]}"
       c=$((c+1))
     done
     unset IFS
