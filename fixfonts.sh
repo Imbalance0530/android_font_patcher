@@ -79,14 +79,17 @@ copy_fonts() {
     cp -rf "${l}" Fonts
     d=$((d+1))
   done
-  for z in Fonts/*; do
-    for i in "${roboto[@]}"; do
-      cp -f "${font2}" "Fonts/$z/${roboto[$c]}"
-      c=$((c+1))
+  font3=($(find "Fonts/" -type d | sed 's#.*/##'))
+  font4=($( find Fonts/*/ -type f ))
+  IFS=$'\n'
+  for z in ${font3[@]}; do
+    for i in "${!font4[@]}"; do
+      for y in ${!roboto[@]}; do
+        cp -f "${font4[i]}" "$(echo ${font4[i]} | sed 's/\(.*\)\/.*/\1/')/${roboto[y]}"
+      done
     done
-    unset IFS
-  done  
-  rm -f /sdcard/Fontchanger/Patcher/*
+  done
+  unset IFS
 }
 
 menu() {
