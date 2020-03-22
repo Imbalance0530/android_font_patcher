@@ -185,9 +185,9 @@ menu() {
   clear
     for j in "${fontstyle[@]}"; do
       for k in "${choice2[@]}"; do
-          . /font-patcher Fonts/"$k"/Roboto-$j.*
+          ./font-patcher Fonts/"$k"/Roboto-$j.*
         if [[ $j == "Bold" ]] || [[ $j == "BoldItalic" ]] || [[ $j == "Italic" ]] || [[ $j == "Light" ]] || [[ $j == "LightItalic" ]] || [[ $j == "Regular" ]]; then
-          . /font-patcher -cn Fonts/"$k"/RobotoCondensed-$j.* 2>&1
+          ./font-patcher -cn Fonts/"$k"/RobotoCondensed-$j.* 2>&1
         fi
         echo "Moving fonts to custom fontchanger folder"
         mkdir /sdcard/Fontchanger/Fonts/Custom/$k
