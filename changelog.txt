@@ -1,0 +1,5 @@
+Changelog
+v1 - 3.30.2020
+* Fix hanging bug
+* Add a reminder to select all for fontstyles
+* Initial support for auto updates

@@ -2,6 +2,39 @@
 
 #alias clear='echo'
 
+version=1
+
+mkdir -p tmp
+
+check_updates() {
+  echo -e "\nChecking for patcher updates"
+  rm -f tmp/.updated 2>&1
+  wget -qO tmp/.changelog https://raw.githubusercontent.com/johnfawkes/android_font_patcher/$branch/changelog.txt 2>/dev/null
+  for i in fixfonts.sh,version; do
+    local file="$(echo $i | cut -d , -f1)" value="$(echo $i | cut -d , -f2)"
+    if [ $(wget -qO - https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/$branch/$(basename $file) 2>/dev/null | grep "^$value=" | cut -d = -f2) -gt $(grep "^$value=" $file | cut -d = -f2) ]; then
+      echo "$version" > tmp/.updated
+      wget -qO $file https://raw.githubusercontent.com/JohnFawkes/android_font_patcher/$branch/$(basename $file) 2>/dev/null
+    fi
+  done
+}
+
+if [ -f tmp/.updated ]; then
+  echo -e "Font patcher succesfully updated!"
+  oldver="$(cat tmp/.updated)" newver="$version"
+  oldline=$(sed -n "/^$oldver/=" tmp/.changelog) newline=$(sed -n "/^$newver/=" tmp/.changelog)
+  echo "Changelog: $(sed -n "/^$newver/p" tmp/.changelog)"
+  sed -n "$newline,$oldline p" tmp/.changelog | sed -E '/^[0-9]|^$/d'
+  echo " "
+  sleep 2
+  echo -e "Please Press enter to continue "
+  read -r enter
+  case $enter in
+    *) :
+    ;;
+  esac
+fi
+
 if [ ! -d PatcherLogs ]; then
   mkdir PatcherLogs
 fi
@@ -140,6 +173,8 @@ menu() {
   clear
   echo "Which style would you like to patch?"
   echo " "
+  echo "If you have no roboto-*.ttf files for your font already, please select all to apply the font systemwide"
+  echo " "
   echo "[0] Thin"
   echo " "
   echo "[1] ThinItalic"
@@ -198,8 +233,8 @@ menu() {
       done
     done        
   cp -rf PatcherLogs /sdcard/Fontchanger/
-  for m in Fonts/*; do
-    rm -f "$m"
+  for m in Fonts; do
+    rm -rf "$m"
   done
 }
 
